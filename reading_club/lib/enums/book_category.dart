@@ -16,7 +16,7 @@ enum BookCategory{
     BookCategory.fiction => scheme.primary,
     BookCategory.fantasy => scheme.secondary,
     BookCategory.detective => scheme.tertiary,
-    BookCategory.science => scheme.primaryContainer,
-    BookCategory.romance => scheme.secondaryContainer,
+    BookCategory.science => scheme.outline,
+    BookCategory.romance => scheme.error,
   };
 }

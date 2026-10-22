@@ -6,21 +6,25 @@ class Book{
   final BookCategory category;
   final DateTime when;
   final int limit;
-  final List<String> names;
+  final List<String> _names;
   final bool mode;
   final String? description;
   final bool favourite;
+  final String place;
 
   const Book({
     required this.title,
     required this.category,
     required this.when,
     required this.limit,
-    this.names = const [],
+    List<String> names = const [],
     this.mode = false,
     this.description,
     this.favourite = false,
-  });
+    required this.place,
+  }) : _names = names;
+
+  List<String> get names => List.unmodifiable(_names);
 
   Book copyWith({
     String? title,
@@ -31,15 +35,17 @@ class Book{
     bool? mode,
     String? description,
     bool? favourite,
+    String? place,
   }){ return Book(
     title: title ?? this.title,
     category: category ?? this.category,
     when: when ?? this.when,
     limit: limit ?? this.limit,
-    names: names ?? this.names,
+    names: names ?? List.from(_names),
     mode: mode ?? this.mode,
     description: description ?? this.description,
     favourite: favourite ?? this.favourite,
+    place: place ?? this.place,
     );
   }
 
@@ -53,15 +59,16 @@ class Book{
       mode: false,
       description: null,
       favourite: false,
+      place: '',
     );
   }
 
-  int get count => names.length;
+  int get count => _names.length;
   int get free => limit - count;
   bool get isFull => count >= limit;
   bool get isPast => DateTime.now().isAfter(when);
   bool contains(String name) {
-    return names.contains(name);
+    return _names.contains(name);
   }
   ({int taken, int free}) get places => (
   taken: count,
